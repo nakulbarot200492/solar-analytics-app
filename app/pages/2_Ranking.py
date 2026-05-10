@@ -71,7 +71,7 @@ else:
     chart_label = "Availability (%)"
 
 # Color by tier
-    color_map = {"Top 10%": "#7bf29d", "Average": "#4a8eff", "Bottom 10%": "#ffb4ab"}
+color_map = {"Top 10%": "#7bf29d", "Average": "#4a8eff", "Bottom 10%": "#ffb4ab"}
 
 fig = px.bar(
     ranking_df.sort_values("Rank"),
