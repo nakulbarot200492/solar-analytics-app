@@ -28,7 +28,7 @@ with st.status("🔍 Running anomaly detection...", expanded=False) as status:
     status.update(label=f"✅ Found {len(anomaly_df)} events", state="complete")
 
 if anomaly_df.empty:
-    st.markdown("""
+    st.markdown(f"""
     <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: 12px; padding: 24px; text-align: center;">
         <p style="font-size: 2rem; margin: 0;">✅</p>
         <h3 style="color: #6ee7b7; margin: 8px 0;">No Anomalies Detected</h3>
@@ -37,7 +37,7 @@ if anomaly_df.empty:
             and {cdf['MPPT_ID'].nunique()} MPPT(s). All readings are within normal parameters.
         </p>
     </div>
-    """.format(), unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     st.stop()
 
 # ── Summary Metrics ─────────────────────────────────────────────────────────
