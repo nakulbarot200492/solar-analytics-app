@@ -71,13 +71,13 @@ fig = px.scatter(
     color="Severity",
     size_max=12,
     hover_data=["Anomaly_Type", "Detail", "kWh_Loss_Est"] if "kWh_Loss_Est" in anomaly_df.columns else ["Anomaly_Type", "Detail"],
-    color_discrete_map={"HIGH": "#ef4444", "MEDIUM": "#f59e0b", "LOW": "#fbbf24"},
+    color_discrete_map={"HIGH": "#ffb4ab", "MEDIUM": "#4a8eff", "LOW": "#7bf29d"},
 )
 fig.update_layout(
     template="plotly_dark",
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="Inter"),
+    font=dict(family="Space Grotesk"),
     xaxis_title="Timestamp",
     yaxis_title="Inverter",
 )

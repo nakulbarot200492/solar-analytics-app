@@ -71,7 +71,7 @@ else:
     chart_label = "Availability (%)"
 
 # Color by tier
-color_map = {"Top 10%": "#10b981", "Average": "#3b82f6", "Bottom 10%": "#ef4444"}
+    color_map = {"Top 10%": "#7bf29d", "Average": "#4a8eff", "Bottom 10%": "#ffb4ab"}
 
 fig = px.bar(
     ranking_df.sort_values("Rank"),
@@ -86,7 +86,7 @@ fig.update_layout(
     template="plotly_dark",
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
-    font=dict(family="Inter"),
+    font=dict(family="Space Grotesk"),
     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
     xaxis=dict(tickangle=-45),
 )

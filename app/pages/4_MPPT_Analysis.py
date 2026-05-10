@@ -82,7 +82,7 @@ if not pivot_df.empty:
         template="plotly_dark",
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter"),
+        font=dict(family="Space Grotesk"),
     )
     st.plotly_chart(fig, width='stretch')
 else:
@@ -111,7 +111,7 @@ if not mppt_summary_df.empty and "Inverter_ID" in mppt_summary_df.columns:
                 template="plotly_dark",
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
-                font=dict(family="Inter"),
+                font=dict(family="Space Grotesk"),
                 showlegend=False,
             )
             st.plotly_chart(fig_bar, width='stretch')
