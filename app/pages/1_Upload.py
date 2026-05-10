@@ -74,6 +74,10 @@ if uploaded_files:
                     raw_df = pd.concat([raw_df, df], ignore_index=True)
                     raw_df = raw_df.drop_duplicates(subset=["Timestamp", "Inverter_ID", "MPPT_ID"], keep="first")
                 
+            except Exception as e:
+                st.error(f"Critical Error loading {uf.name}: {e}")
+                st.stop()
+                
     st.session_state["raw_df"] = raw_df
     
     # Auto-calculate power if we have both V and I
