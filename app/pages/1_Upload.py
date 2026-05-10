@@ -43,6 +43,29 @@ if uploaded_files:
         with st.spinner(f"Parsing {uf.name}..."):
             try:
                 df, warnings = load_excel(uf)
+                
+                if df.empty:
+                    st.error(f"Failed to load {uf.name}:")
+                    for w in warnings:
+                        st.markdown(f"- {w}")
+                    
+                    with st.expander("🛠️ How to Fix This Error"):
+                        st.markdown("""
+                        **The system could not recognize your file format.**
+                        
+                        **Checklist:**
+                        1. **File Type:** Ensure you are uploading `.xlsx`, `.xls`, or `.csv`.
+                        2. **Headers:** Does your file have a header row? The system looks for:
+                           - Time/Timestamp columns
+                           - Voltage/Current/Power columns
+                        3. **SMA Format:** If it's an SMA Sunny Portal export, ensure it's the 'Detailed' report type.
+                        4. **Encrypted Files:** If the Excel file is password protected, the system cannot read it.
+                        
+                        **Example Supported Headers:**
+                        `Timestamp, Inverter, MPPT, DC Voltage, DC Current, DC Power`
+                        """)
+                    st.stop()
+
                 all_warnings.extend(warnings)
                 
                 if raw_df is None:
@@ -50,10 +73,6 @@ if uploaded_files:
                 else:
                     raw_df = pd.concat([raw_df, df], ignore_index=True)
                     raw_df = raw_df.drop_duplicates(subset=["Timestamp", "Inverter_ID", "MPPT_ID"], keep="first")
-                    
-            except Exception as e:
-                st.error(f"Failed to load file {uf.name}: {e}")
-                st.stop()
                 
     st.session_state["raw_df"] = raw_df
     

@@ -63,10 +63,24 @@ def load_excel(file_obj) -> Tuple[pd.DataFrame, List[str]]:
             warnings.append(f"💡 Skipped {header_row} metadata rows to find the data header.")
             
     except Exception as e:
-        return pd.DataFrame(), [f"Failed to read file: {e}"]
+        return pd.DataFrame(), [f"Failed to read file {file_obj.name}: {e}"]
+
+    if df.empty:
+        return pd.DataFrame(), [f"Failed to read file {file_obj.name}: File is empty or could not be parsed."]
 
     df, map_warnings = normalize_schema(df)
     warnings.extend(map_warnings)
+    
+    # Validation: Ensure we found at least a Timestamp and one numeric metric
+    metrics_found = [c for c in OPTIONAL_COLUMNS if c in df.columns and df[c].notna().any()]
+    has_timestamp = "Timestamp" in df.columns and df["Timestamp"].notna().any()
+    
+    if not has_timestamp or not metrics_found:
+        return pd.DataFrame(), [
+            f"❌ Unrecognized file format in {file_obj.name}.",
+            "The system could not find required columns (Timestamp, Voltage, Current, or Power).",
+            "Please ensure the file is an SMA Sunny Portal export or follows the supported template."
+        ]
     
     return df, warnings
 
