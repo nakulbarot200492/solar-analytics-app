@@ -1,0 +1,22 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:8501",
+  "executionArgs": {
+    "projectName": "solar-analytics-app",
+    "projectPath": "/Users/macbook/Documents/solar-analytics-app",
+    "testIds": [
+      "TC001",
+      "TC004",
+      "TC005",
+      "TC008"
+    ],
+    "additionalInstruction": "Use the sample file located in the project workspace at 'testsprite_tests/data/sample.xlsx' for the upload action in TC001. Please execute TC001, TC004, TC005, and TC008.",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-wE0uJnCNxtQbhhJh1pzYs4XZ6u3y20fnoAW0u3PswfreYPUNOyabRhn61jrZTbWiqBqT4NEGiTDRtV7S42Xuu2kgwnRRRw-kOVSm3yWOBBKo3S7u7bvFSu0reCKtl7lW278"
+    }
+  },
+  "serverPort": 53392
+}

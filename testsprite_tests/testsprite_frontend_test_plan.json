@@ -1,0 +1,434 @@
+[
+  {
+    "id": "TC001",
+    "title": "Upload a valid SMA dataset and reach the dashboard overview",
+    "description": "This verifies that a valid .xlsx dataset can be uploaded, processed, and made available for fleet analysis on the dashboard.",
+    "category": "Data Ingestion",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /Upload"
+      },
+      {
+        "type": "action",
+        "description": "Upload a valid SMA .xlsx file"
+      },
+      {
+        "type": "action",
+        "description": "Wait for processing to complete"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a successful processing confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard KPI overview is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "View the dashboard landing page after data is available",
+    "description": "This verifies that the dashboard shows the fleet KPI overview as the main landing experience once processed data is available.",
+    "category": "Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard KPI overview is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify fleet summary metrics are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Recover from an invalid upload by correcting the file",
+    "description": "This verifies that invalid or incomplete data is rejected with validation feedback and that a corrected upload can be processed successfully.",
+    "category": "Data Ingestion",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /Upload"
+      },
+      {
+        "type": "action",
+        "description": "Upload an invalid or incomplete .xlsx file"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error is visible"
+      },
+      {
+        "type": "action",
+        "description": "Upload a valid SMA .xlsx file"
+      },
+      {
+        "type": "action",
+        "description": "Wait for processing to complete"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a successful processing confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard KPI overview is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Review fleet performance metrics on the ranking page",
+    "description": "This verifies that the ranking page shows fleet-level performance summaries, a ranking chart, and the detailed inverter table.",
+    "category": "Performance Ranking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /Ranking"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify fleet performance metric cards are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the performance ranking chart is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the detailed ranking table is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Inspect anomaly records after filtering by fault type",
+    "description": "This verifies that the anomaly report can be filtered to a specific fault type and that matching records are shown.",
+    "category": "Anomaly Reporting",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /Anomalies"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the anomaly scatter plot is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Filter the report to a specific fault type"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify matching anomaly records are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Compare inverter positions within the ranking chart",
+    "description": "This verifies that users can inspect the ranking chart to compare inverter positions across the fleet.",
+    "category": "Performance Ranking",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /Ranking"
+      },
+      {
+        "type": "action",
+        "description": "Interact with the performance ranking chart"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify inverter ranking positions are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the fleet comparison view remains visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Review anomaly instances across the report",
+    "description": "This verifies that users can inspect anomaly instances from the scatter plot and see the corresponding records in the report.",
+    "category": "Anomaly Reporting",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /Anomalies"
+      },
+      {
+        "type": "action",
+        "description": "Select a fault pattern of interest"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the anomaly scatter plot is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify anomaly record details are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Analyze MPPT behavior for a selected inverter",
+    "description": "This verifies that an inverter can be selected and its current and voltage heatmaps and underperformance alerts are shown.",
+    "category": "MPPT Analysis",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /MPPT_Analysis"
+      },
+      {
+        "type": "action",
+        "description": "Select an inverter"
+      },
+      {
+        "type": "action",
+        "description": "Toggle the current heatmap"
+      },
+      {
+        "type": "action",
+        "description": "Toggle the voltage heatmap"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the MPPT heatmaps are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify underperformance alerts are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC009",
+    "title": "Select an inverter and review MPPT heatmaps",
+    "description": "This verifies that a user can choose an inverter and see both MPPT heatmaps for channel-level inspection.",
+    "category": "MPPT Analysis",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /MPPT_Analysis"
+      },
+      {
+        "type": "action",
+        "description": "Select an inverter from the dropdown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify MPPT heatmaps are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify channel-level behavior for the selected inverter is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC010",
+    "title": "Move from fleet review into inverter-level diagnostics",
+    "description": "This verifies that a user can move from higher-level fleet analysis into MPPT diagnostics to investigate suspected issues.",
+    "category": "Cross-page Navigation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /Ranking"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the ranking page is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /MPPT_Analysis"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the MPPT analysis page is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /Anomalies"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the anomaly report page is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC011",
+    "title": "Switch between current and voltage MPPT views",
+    "description": "This verifies that a user can toggle the MPPT view and compare current and voltage behavior for the selected inverter.",
+    "category": "MPPT Analysis",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /MPPT_Analysis"
+      },
+      {
+        "type": "action",
+        "description": "Select an inverter from the dropdown"
+      },
+      {
+        "type": "action",
+        "description": "Toggle to the current heatmap view"
+      },
+      {
+        "type": "action",
+        "description": "Toggle to the voltage heatmap view"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify both current and voltage heatmap views are available for comparison"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC012",
+    "title": "Review underperformance alerts for an inverter",
+    "description": "This verifies that a user can inspect MPPT alerts after choosing an inverter and identify any underperforming channels.",
+    "category": "MPPT Analysis",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /MPPT_Analysis"
+      },
+      {
+        "type": "action",
+        "description": "Select an inverter from the dropdown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify underperformance alerts are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the alerts identify problematic channels or behavior"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC013",
+    "title": "Change inverter selection and update diagnostics",
+    "description": "This verifies that changing the selected inverter updates the displayed MPPT diagnostics to match the new inverter.",
+    "category": "MPPT Analysis",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /MPPT_Analysis"
+      },
+      {
+        "type": "action",
+        "description": "Select one inverter from the dropdown"
+      },
+      {
+        "type": "action",
+        "description": "Select a different inverter from the dropdown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the MPPT diagnostics update for the newly selected inverter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the heatmaps reflect the newly selected inverter"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC014",
+    "title": "Inspect MPPT behavior after moving from another analysis page",
+    "description": "This verifies that a user can move from fleet-level analysis into MPPT diagnostics and continue investigating a suspected inverter issue.",
+    "category": "MPPT Analysis",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /Ranking"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open MPPT analysis"
+      },
+      {
+        "type": "action",
+        "description": "Select an inverter from the dropdown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify MPPT diagnostics are displayed for the selected inverter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify underperformance alerts or heatmaps support inverter-level investigation"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC015",
+    "title": "View MPPT analysis with default selections",
+    "description": "This verifies that the MPPT analysis page loads with usable default content when a user opens it directly.",
+    "category": "MPPT Analysis",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /MPPT_Analysis"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify MPPT analysis controls are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify initial MPPT diagnostics are displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC016",
+    "title": "Handle MPPT analysis when no inverter is selected",
+    "description": "This verifies that the MPPT page presents a clear empty or prompt state before an inverter is chosen.",
+    "category": "MPPT Analysis",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /MPPT_Analysis"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an inverter selection prompt or empty state is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify MPPT diagnostics are not shown until an inverter is selected"
+      }
+    ],
+    "priority": "Low"
+  }
+]

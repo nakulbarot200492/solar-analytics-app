@@ -1,0 +1,77 @@
+version: "2"
+type: frontend
+tech_stack:
+  - Python
+  - Streamlit
+  - Pandas
+  - Plotly
+routes:
+  - path: /
+    file: app/main.py
+    auth_required: false
+    description: Dashboard landing page with KPI overview
+  - path: /Upload
+    file: app/pages/1_Upload.py
+    auth_required: false
+    description: File upload and data processing page
+  - path: /Ranking
+    file: app/pages/2_Ranking.py
+    auth_required: false
+    description: Inverter performance ranking page
+  - path: /Anomalies
+    file: app/pages/3_Anomalies.py
+    auth_required: false
+    description: Solar fault and anomaly detection report
+  - path: /MPPT_Analysis
+    file: app/pages/4_MPPT_Analysis.py
+    auth_required: false
+    description: Channel-level MPPT behavior analysis and heatmaps
+features:
+  - name: Data Ingestion
+    description: Upload and normalize SMA solar datasets
+    files:
+      - app/pages/1_Upload.py
+      - core/data_loader.py
+    entry_route: /Upload
+    user_interactions:
+      - Upload an .xlsx file using the file uploader
+      - Click on processing progress indicators
+      - See success/error alerts
+    api_calls: []
+    auth_required: false
+  - name: Performance Ranking
+    description: View composite scores and ranking of all inverters
+    files:
+      - app/pages/2_Ranking.py
+      - core/ranking_engine.py
+    entry_route: /Ranking
+    user_interactions:
+      - View metric cards (Fleet PR, Availability)
+      - Interact with performance bar chart
+      - View detailed ranking table
+    api_calls: []
+    auth_required: false
+  - name: Anomaly Reporting
+    description: Identify and analyze system faults
+    files:
+      - app/pages/3_Anomalies.py
+      - core/anomaly_engine.py
+    entry_route: /Anomalies
+    user_interactions:
+      - View scatter plot of anomalies
+      - Filter or inspect specific fault types
+    api_calls: []
+    auth_required: false
+  - name: MPPT Analysis
+    description: Deep dive into channel-level electrical data
+    files:
+      - app/pages/4_MPPT_Analysis.py
+      - core/mppt_analyzer.py
+    entry_route: /MPPT_Analysis
+    user_interactions:
+      - Select an inverter from the dropdown
+      - Toggle between Current and Voltage heatmaps
+      - View underperformance alerts
+    api_calls: []
+    auth_required: false
+known_limitations: []
