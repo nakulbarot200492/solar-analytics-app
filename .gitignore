@@ -12,3 +12,4 @@ graphify-out/
 *.xls
 *.csv
 streamlit.log
+node_modules/

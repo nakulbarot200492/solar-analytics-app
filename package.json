@@ -1,0 +1,31 @@
+{
+  "name": "solar-analytics-app",
+  "version": "1.0.0",
+  "description": "**Anomaly Detection | MPPT Analysis | RCA Engine**   300–400 Solar PV Sites • Inverter-level Intelligence • Actionable O&M Insights",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nakulbarot200492/solar-analytics-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nakulbarot200492/solar-analytics-app/issues"
+  },
+  "homepage": "https://github.com/nakulbarot200492/solar-analytics-app#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.3.4",
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.3.4",
+    "@capacitor/core": "^8.3.4",
+    "@capacitor/status-bar": "^8.0.2"
+  }
+}

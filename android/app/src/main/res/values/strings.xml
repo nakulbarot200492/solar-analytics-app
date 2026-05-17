@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Solar Analytics</string>
+    <string name="title_activity_main">Solar Analytics</string>
+    <string name="package_name">com.solaranalytics.app</string>
+    <string name="custom_url_scheme">com.solaranalytics.app</string>
+</resources>

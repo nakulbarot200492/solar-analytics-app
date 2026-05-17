@@ -174,5 +174,21 @@ def inject_global_css():
     ::-webkit-scrollbar-thumb { background: #353534; border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: #4d4732; }
 
+    /* ─── Hide Streamlit Branding (Make it look Native) ────────────── */
+    /* Hide top right menu, fork, and github icons */
+    header { visibility: hidden !important; }
+    [data-testid="stToolbar"] { visibility: hidden !important; }
+    .stDeployButton { display: none !important; }
+    #MainMenu { visibility: hidden !important; }
+    
+    /* Hide bottom footer */
+    footer { visibility: hidden !important; display: none !important; }
+    
+    /* Hide 'Hosted with Streamlit' badge */
+    .viewerBadge_container__1JCIV { display: none !important; }
+    div[class^="viewerBadge_"] { display: none !important; }
+    div[class*="viewerBadge_"] { display: none !important; }
+    #viewerBadgeTootip { display: none !important; }
+
     </style>
     """, unsafe_allow_html=True)

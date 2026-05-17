@@ -1,0 +1,27 @@
+{
+  "appId": "com.solaranalytics.app",
+  "appName": "Solar Analytics",
+  "webDir": "static",
+  "server": {
+    "url": "https://solar-analytics-app.streamlit.app/",
+    "cleartext": true,
+    "allowNavigation": [
+      "*"
+    ]
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 3000,
+      "launchAutoHide": true,
+      "backgroundColor": "#131313",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false,
+      "splashFullScreen": true,
+      "splashImmersive": true
+    },
+    "StatusBar": {
+      "style": "LIGHT",
+      "backgroundColor": "#131313"
+    }
+  }
+}

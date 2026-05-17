@@ -23,6 +23,13 @@ st.set_page_config(
 from app.styles import inject_global_css
 inject_global_css()
 
+# ── Sidebar Control Panel ────────────────────────────────────────────────────
+with st.sidebar:
+    st.markdown("### 🛠️ Control Panel")
+    if st.button("🔄 Refresh Dashboard", type="primary", use_container_width=True):
+        st.rerun()
+    st.markdown("<hr>", unsafe_allow_html=True)
+
 # ── Title ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
