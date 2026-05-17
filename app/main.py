@@ -23,6 +23,38 @@ st.set_page_config(
 from app.styles import inject_global_css
 inject_global_css()
 
+# ── Top Navigation Bar ───────────────────────────────────────────────────────
+st.markdown("""
+<div style="
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: rgba(32,31,31,0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 10px 16px;
+    margin-bottom: 24px;
+    backdrop-filter: blur(10px);
+">
+    <span style="color:#ffd700; font-weight:700; font-size:0.85rem; align-self:center; margin-right:8px;">☀️ NAVIGATE:</span>
+""", unsafe_allow_html=True)
+
+nav_cols = st.columns(6)
+with nav_cols[0]:
+    st.page_link("app/main.py", label="🏠 Home", use_container_width=True)
+with nav_cols[1]:
+    st.page_link("app/pages/1_Upload.py", label="📁 Upload", use_container_width=True)
+with nav_cols[2]:
+    st.page_link("app/pages/2_Ranking.py", label="📊 Ranking", use_container_width=True)
+with nav_cols[3]:
+    st.page_link("app/pages/3_Anomalies.py", label="⚠️ Anomalies", use_container_width=True)
+with nav_cols[4]:
+    st.page_link("app/pages/4_MPPT_Analysis.py", label="⚡ MPPT", use_container_width=True)
+with nav_cols[5]:
+    st.page_link("app/pages/5_RCA_Report.py", label="🛠️ RCA", use_container_width=True)
+
+st.markdown("</div>", unsafe_allow_html=True)
+
 # ── Sidebar Control Panel ────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("### 🛠️ Control Panel")
@@ -30,7 +62,7 @@ with st.sidebar:
         st.rerun()
     st.markdown("<hr>", unsafe_allow_html=True)
 
-# ── Title ────────────────────────────────────────────────────────────────────
+
 st.markdown("""
 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
     <span style="font-size: 2.2rem;">☀️</span>
