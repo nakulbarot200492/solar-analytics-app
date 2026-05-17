@@ -143,27 +143,28 @@ def _make_table(df: pd.DataFrame, max_rows: int = 50) -> Table:
             data_row.append(Paragraph(text, cell_style))
         data.append(data_row)
 
-    table = Table(data, colWidths=col_widths, repeatRows=1)
+    table = Table(data, colWidths=col_widths, repeatRows=1, splitByRow=1)
 
     style = TableStyle([
         # Header row
-        ("BACKGROUND", (0, 0), (-1, 0), DARK_BG),
-        ("TEXTCOLOR",  (0, 0), (-1, 0), GOLD),
-        ("FONTNAME",   (0, 0), (-1, 0), "Helvetica-Bold"),
-        ("FONTSIZE",   (0, 0), (-1, 0), 8),
-        ("ALIGN",      (0, 0), (-1, 0), "CENTER"),
-        ("BOTTOMPADDING", (0, 0), (-1, 0), 6),
-        ("TOPPADDING",    (0, 0), (-1, 0), 6),
+        ("BACKGROUND",    (0, 0), (-1, 0), DARK_BG),
+        ("ALIGN",         (0, 0), (-1, 0), "CENTER"),
+        ("VALIGN",        (0, 0), (-1, 0), "MIDDLE"),
+        ("BOTTOMPADDING", (0, 0), (-1, 0), 5),
+        ("TOPPADDING",    (0, 0), (-1, 0), 5),
+        ("LEFTPADDING",   (0, 0), (-1, 0), 3),
+        ("RIGHTPADDING",  (0, 0), (-1, 0), 3),
         # Data rows
-        ("FONTNAME",   (0, 1), (-1, -1), "Helvetica"),
-        ("FONTSIZE",   (0, 1), (-1, -1), 7.5),
-        ("TEXTCOLOR",  (0, 1), (-1, -1), TEXT_LIGHT),
-        ("ALIGN",      (0, 1), (-1, -1), "CENTER"),
-        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [SURFACE, ROW_ALT]),
-        ("GRID",       (0, 0), (-1, -1), 0.3, colors.HexColor("#2A2A2A")),
-        ("TOPPADDING",    (0, 1), (-1, -1), 4),
-        ("BOTTOMPADDING", (0, 1), (-1, -1), 4),
+        ("VALIGN",        (0, 1), (-1, -1), "TOP"),
+        ("ALIGN",         (0, 1), (-1, -1), "CENTER"),
+        ("ROWBACKGROUNDS",(0, 1), (-1, -1), [SURFACE, ROW_ALT]),
+        ("GRID",          (0, 0), (-1, -1), 0.3, colors.HexColor("#2A2A2A")),
+        ("TOPPADDING",    (0, 1), (-1, -1), 3),
+        ("BOTTOMPADDING", (0, 1), (-1, -1), 3),
+        ("LEFTPADDING",   (0, 1), (-1, -1), 3),
+        ("RIGHTPADDING",  (0, 1), (-1, -1), 3),
     ])
+
 
     # Color performance tiers if present
     if "Performance_Tier" in headers:
