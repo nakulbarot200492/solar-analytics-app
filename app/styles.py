@@ -175,19 +175,24 @@ def inject_global_css():
     ::-webkit-scrollbar-thumb:hover { background: #4d4732; }
 
     /* ─── Hide Streamlit Branding (Make it look Native) ────────────── */
-    /* Hide top right menu, fork, and github icons (keep header visible for sidebar toggle) */
-    [data-testid="stToolbar"] { visibility: hidden !important; }
+    [data-testid="stToolbar"] { display: none !important; visibility: hidden !important; }
     .stDeployButton { display: none !important; }
-    #MainMenu { visibility: hidden !important; }
+    #MainMenu { display: none !important; }
+    footer { display: none !important; }
     
-    /* Hide bottom footer */
-    footer { visibility: hidden !important; display: none !important; }
-    
-    /* Hide 'Hosted with Streamlit' badge */
-    .viewerBadge_container__1JCIV { display: none !important; }
-    div[class^="viewerBadge_"] { display: none !important; }
-    div[class*="viewerBadge_"] { display: none !important; }
-    #viewerBadgeTootip { display: none !important; }
+    /* Aggressive Viewer Badge Hide */
+    .viewerBadge_container__1JCIV, .viewerBadge_link__1S137, #viewerBadgeTootip { display: none !important; }
+    div[class^="viewerBadge_"] { display: none !important; opacity: 0 !important; }
+    iframe[src*="badge"] { display: none !important; }
 
+    /* ─── Sidebar Toggle Button (Mobile) ────────────── */
+    [data-testid="collapsedControl"] {
+        color: #ffffff !important;
+        background-color: transparent !important;
+    }
+    [data-testid="collapsedControl"] svg {
+        fill: #ffffff !important;
+        stroke: #ffffff !important;
+    }
     </style>
     """, unsafe_allow_html=True)
