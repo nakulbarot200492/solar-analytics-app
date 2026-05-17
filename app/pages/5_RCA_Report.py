@@ -1,14 +1,15 @@
 import streamlit as st
 import pandas as pd
 from core.rca_engine import get_rca_summary
-from app.styles import inject_global_css
-
-if "anomaly_df" not in st.session_state:
-    st.warning("Please upload and process data first.")
-    st.stop()
+from app.styles import inject_global_css, inject_nav_bar
 
 st.set_page_config(page_title="RCA Engine", page_icon="🛠️", layout="wide")
 inject_global_css()
+inject_nav_bar()
+
+if "anomaly_df" not in st.session_state:
+    st.warning("⚠️ Please go to Upload page and process your data first.")
+    st.stop()
 
 st.title("🛠️ Root Cause Analysis")
 

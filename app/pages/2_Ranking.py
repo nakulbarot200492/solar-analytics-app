@@ -2,14 +2,15 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from app.styles import inject_global_css
-
-if "ranking_df" not in st.session_state:
-    st.warning("Please upload and process data first.")
-    st.stop()
+from app.styles import inject_global_css, inject_nav_bar
 
 st.set_page_config(page_title="Inverter Ranking", page_icon="📊", layout="wide")
 inject_global_css()
+inject_nav_bar()
+
+if "ranking_df" not in st.session_state:
+    st.warning("⚠️ Please go to Upload page and process your data first.")
+    st.stop()
 
 st.title("📊 Inverter Performance Ranking")
 

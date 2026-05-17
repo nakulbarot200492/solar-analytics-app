@@ -2,14 +2,15 @@ import streamlit as st
 import pandas as pd
 from core.exporter import build_export_package
 from core.rca_engine import get_rca_summary
-from app.styles import inject_global_css
-
-if "ranking_df" not in st.session_state:
-    st.warning("Please upload and process data first.")
-    st.stop()
+from app.styles import inject_global_css, inject_nav_bar
 
 st.set_page_config(page_title="Export Reports", page_icon="📥", layout="wide")
 inject_global_css()
+inject_nav_bar()
+
+if "ranking_df" not in st.session_state:
+    st.warning("⚠️ Please go to Upload page and process your data first.")
+    st.stop()
 
 st.title("📥 Export Reports")
 

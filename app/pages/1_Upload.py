@@ -14,10 +14,11 @@ from core.inverter_ranking import compute_ranking
 from core.anomaly_detector import run_all_detectors, get_anomaly_summary
 from core.mppt_analyzer import compute_mppt_deviation, find_underperforming_mpppts, compute_voltage_stability, get_mppt_summary_per_inverter
 from core.rca_engine import apply_rca, get_rca_summary
-from app.styles import inject_global_css
+from app.styles import inject_global_css, inject_nav_bar
 
 st.set_page_config(page_title="Data Upload", page_icon="📁", layout="wide")
 inject_global_css()
+inject_nav_bar()
 
 st.title("📁 Data Upload & Processing")
 

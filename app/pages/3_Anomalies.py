@@ -3,14 +3,15 @@ import pandas as pd
 import plotly.express as px
 from core.anomaly_detector import run_all_detectors, get_anomaly_summary
 from core.rca_engine import apply_rca
-from app.styles import inject_global_css
-
-if "cleaned_df" not in st.session_state:
-    st.warning("Please upload and process data first.")
-    st.stop()
+from app.styles import inject_global_css, inject_nav_bar
 
 st.set_page_config(page_title="Anomalies", page_icon="⚠️", layout="wide")
 inject_global_css()
+inject_nav_bar()
+
+if "cleaned_df" not in st.session_state:
+    st.warning("⚠️ Please go to Upload page and process your data first.")
+    st.stop()
 
 st.title("⚠️ Anomaly Detection")
 

@@ -229,3 +229,40 @@ def inject_global_css():
     }
     </style>
     """, unsafe_allow_html=True)
+
+
+def inject_nav_bar():
+    """Inject a top navigation bar on every page."""
+    st.markdown("""
+<div style="
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    background: rgba(32,31,31,0.9);
+    border: 1px solid rgba(255,215,0,0.15);
+    border-radius: 14px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    align-items: center;
+">
+    <span style="color:#ffd700; font-weight:700; font-size:0.8rem; margin-right:6px;">☀️ NAV:</span>
+""", unsafe_allow_html=True)
+
+    cols = st.columns(7)
+    with cols[0]:
+        st.page_link("main.py", label="🏠 Home", use_container_width=True)
+    with cols[1]:
+        st.page_link("pages/1_Upload.py", label="📁 Upload", use_container_width=True)
+    with cols[2]:
+        st.page_link("pages/2_Ranking.py", label="📊 Ranking", use_container_width=True)
+    with cols[3]:
+        st.page_link("pages/3_Anomalies.py", label="⚠️ Anomalies", use_container_width=True)
+    with cols[4]:
+        st.page_link("pages/4_MPPT_Analysis.py", label="⚡ MPPT", use_container_width=True)
+    with cols[5]:
+        st.page_link("pages/5_RCA_Report.py", label="🛠️ RCA", use_container_width=True)
+    with cols[6]:
+        st.page_link("pages/6_Export.py", label="💾 Export", use_container_width=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
