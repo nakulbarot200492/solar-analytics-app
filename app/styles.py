@@ -175,8 +175,7 @@ def inject_global_css():
     ::-webkit-scrollbar-thumb:hover { background: #4d4732; }
 
     /* ─── Hide Streamlit Branding (Make it look Native) ────────────── */
-    /* Hide top right menu, fork, and github icons */
-    header { visibility: hidden !important; }
+    /* Hide top right menu, fork, and github icons (keep header visible for sidebar toggle) */
     [data-testid="stToolbar"] { visibility: hidden !important; }
     .stDeployButton { display: none !important; }
     #MainMenu { visibility: hidden !important; }
