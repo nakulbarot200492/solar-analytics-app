@@ -95,13 +95,19 @@ def apply_rca(anomaly_df: pd.DataFrame) -> pd.DataFrame:
     if anomaly_df.empty:
         return anomaly_df
 
-    # Deduplicate RCA map
-    rca_dedup = RCA_DF.drop_duplicates(subset="Anomaly_Type", keep="first")[
-        ["Anomaly_Type", "Root_Cause", "Recommended_Action", "Priority"]
-    ]
+    # Group multiple root causes into a single string if they exist for the same anomaly type
+    rca_grouped = (
+        RCA_DF.groupby("Anomaly_Type")
+        .agg({
+            "Root_Cause": lambda x: " | ".join(dict.fromkeys(x)),
+            "Recommended_Action": lambda x: " | ".join(dict.fromkeys(x)),
+            "Priority": "first"
+        })
+        .reset_index()
+    )
 
     # Ensure we don't lose rows: use left merge
-    enriched = anomaly_df.merge(rca_dedup, on="Anomaly_Type", how="left")
+    enriched = anomaly_df.merge(rca_grouped, on="Anomaly_Type", how="left")
     
     # Fill defaults for rows without an RCA match
     enriched["Root_Cause"] = enriched["Root_Cause"].fillna("Unknown / Multi-factor")

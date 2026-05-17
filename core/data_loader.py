@@ -14,12 +14,12 @@ from typing import Tuple, List, Optional
 # ── PRD Column Mapping ───────────────────────────────────────────────────────
 COLUMN_MAP = {
     "Timestamp": ["Timestamp", "Time", "Date", "DateTime", "Zeit"],
-    "DC_Voltage_V": ["Voltage", "V_PV", "U_PV", "DC Voltage", "V_DC", "Mean_Voltage_V", "Voltage_V", "Voltage [V]", "Mean_Voltage"],
-    "DC_Current_A": ["Current", "I_PV", "A_PV", "DC Current", "A_DC", "Mean_Current_A", "Current_A", "Current [A]", "Mean_Current"],
-    "DC_Power_kW": ["DC Power", "P_DC", "Power_DC", "Power [kW]", "DC_Power"],
-    "AC_Power_kW": ["AC Power", "P_AC", "Power_AC", "Active Power", "AC_Power"],
-    "Irradiance_Wm2": ["Irradiance", "G_Hor", "Solar Radiation", "W/m2", "G_Global", "POA"],
-    "Temperature_C": ["Temperature", "T_Amb", "Module Temp", "Temp", "Ambient Temperature"],
+    "DC_Voltage_V": ["Voltage", "V_PV", "U_PV", "DC Voltage", "V_DC", "Mean_Voltage_V", "Voltage_V", "Voltage [V]", "Mean_Voltage", "Spannung", "DC-Spannung"],
+    "DC_Current_A": ["Current", "I_PV", "A_PV", "DC Current", "A_DC", "Mean_Current_A", "Current_A", "Current [A]", "Mean_Current", "Strom", "DC-Strom"],
+    "DC_Power_kW": ["DC Power", "P_DC", "Power_DC", "Power [kW]", "DC_Power", "Leistung", "DC-Leistung"],
+    "AC_Power_kW": ["AC Power", "P_AC", "Power_AC", "Active Power", "AC_Power", "AC-Leistung"],
+    "Irradiance_Wm2": ["Irradiance", "G_Hor", "Solar Radiation", "W/m2", "G_Global", "POA", "Einstrahlung"],
+    "Temperature_C": ["Temperature", "T_Amb", "Module Temp", "Temp", "Ambient Temperature", "Temperatur"],
     "Inverter_ID": ["Serial Number", "S/N", "Device", "Inverter", "Inv. ID", "Inverter-ID", "Inverter ID", "Gerät"],
     "MPPT_ID": ["MPPT", "Channel", "Input", "String", "MPPT ID", "Kanal"],
 }
@@ -102,19 +102,23 @@ def normalize_schema(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[str]]:
     # We extract: Inverter_ID=A2, metric=DC_Current_A, MPPT_ID=1
     
     sma_detail_pattern = re.compile(
-        r'Inv\s+(\w+)\b'         # Inverter ID (e.g. A2, A25)
-        r'.*?:\s*'               # Skip model info, match colon
-        r'(DC\s+Current|DC\s+Voltage|DC\s+Power|AC\s+Power|AC\s+Current)'  # Metric
-        r'(?:.*?Input\s+(\d+))?', # Optional MPPT input number
+        r'Inv\s+(\w+)\b'         # Inverter ID
+        r'.*?:\s*'               # Skip model info
+        r'(DC\s+Current|DC\s+Voltage|DC\s+Power|AC\s+Power|AC\s+Current|DC-Strom|DC-Spannung|DC-Leistung|AC-Leistung)'  # Metric (Eng/Ger)
+        r'(?:.*?Input\s+(\d+))?', # Optional MPPT
         re.I
     )
     
     # Map SMA metric keywords to our canonical column names
     SMA_METRIC_MAP = {
         'dc current':  'DC_Current_A',
+        'dc-strom':    'DC_Current_A',
         'dc voltage':  'DC_Voltage_V',
+        'dc-spannung': 'DC_Voltage_V',
         'dc power':    'DC_Power_kW',
+        'dc-leistung': 'DC_Power_kW',
         'ac power':    'AC_Power_kW',
+        'ac-leistung': 'AC_Power_kW',
         'ac current':  'AC_Current_A',
     }
     
