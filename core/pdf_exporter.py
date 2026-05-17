@@ -6,8 +6,15 @@ Pure Python — no system dependencies, works on Streamlit Cloud.
 """
 
 import io
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 import pandas as pd
+
+# Indian Standard Time (UTC+5:30)
+IST = timezone(timedelta(hours=5, minutes=30))
+
+def _now_ist() -> datetime:
+    """Return current time in IST."""
+    return datetime.now(IST)
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -64,25 +71,77 @@ def _styles():
     }
 
 
+# Column width hints — wide text columns vs narrow numeric ones
+_WIDE_COLS  = {"Root_Cause", "Recommended_Action", "Detail", "Anomaly_Type",
+               "Inverter_ID", "Description", "Action"}
+_NARROW_COLS = {"Rank", "Priority", "Severity", "Event_Count",
+                "Inverters_Affected", "Total_kWh_Loss", "kWh_Loss_Est",
+                "MPPT_ID", "Timestamp"}
+
+
+def _smart_col_widths(headers: list) -> list:
+    """Assign proportional widths: wide for text cols, narrow for numeric."""
+    page_w = A4[0] - 40*mm  # usable width
+    wide_w   = 42*mm
+    narrow_w = 18*mm
+    normal_w = 28*mm
+
+    widths = []
+    for h in headers:
+        if h in _WIDE_COLS:
+            widths.append(wide_w)
+        elif h in _NARROW_COLS:
+            widths.append(narrow_w)
+        else:
+            widths.append(normal_w)
+
+    total = sum(widths)
+    # Scale to fit exactly in page width
+    scale = page_w / total
+    return [w * scale for w in widths]
+
+
 def _make_table(df: pd.DataFrame, max_rows: int = 50) -> Table:
-    """Convert a DataFrame to a styled ReportLab table."""
+    """Convert a DataFrame to a styled ReportLab table with word-wrap."""
     if df.empty:
         return Paragraph("No data available.", _styles()["body"])
 
     df_display = df.head(max_rows).copy()
-    # Truncate long strings
-    for col in df_display.select_dtypes(include="object").columns:
-        df_display[col] = df_display[col].astype(str).str[:35]
 
     # Round floats
     for col in df_display.select_dtypes(include="float").columns:
         df_display[col] = df_display[col].round(2)
 
-    headers = list(df_display.columns)
-    data = [headers] + df_display.values.tolist()
+    # Build cell style for wrapping text
+    cell_style = ParagraphStyle(
+        "Cell",
+        fontName="Helvetica",
+        fontSize=7,
+        textColor=TEXT_LIGHT,
+        leading=9,
+        wordWrap="CJK",
+    )
+    header_style = ParagraphStyle(
+        "CellHeader",
+        fontName="Helvetica-Bold",
+        fontSize=7.5,
+        textColor=GOLD,
+        leading=10,
+        alignment=TA_CENTER,
+    )
 
-    col_width = (A4[0] - 40*mm) / max(len(headers), 1)
-    col_widths = [col_width] * len(headers)
+    headers = list(df_display.columns)
+    col_widths = _smart_col_widths(headers)
+
+    # Build data with Paragraph cells for text columns
+    header_row = [Paragraph(str(h), header_style) for h in headers]
+    data = [header_row]
+    for _, row in df_display.iterrows():
+        data_row = []
+        for h, val in zip(headers, row):
+            text = str(val) if val is not None else ""
+            data_row.append(Paragraph(text, cell_style))
+        data.append(data_row)
 
     table = Table(data, colWidths=col_widths, repeatRows=1)
 
@@ -148,7 +207,7 @@ def _header_footer(canvas, doc):
     canvas.drawString(20*mm, h - 11*mm, "☀ Solar SPV Analytics Platform")
     canvas.setFillColor(TEXT_MUTED)
     canvas.setFont("Helvetica", 8)
-    canvas.drawRightString(w - 20*mm, h - 11*mm, f"Generated: {datetime.now().strftime('%d %b %Y, %H:%M')}")
+    canvas.drawRightString(w - 20*mm, h - 11*mm, f"Generated: {_now_ist().strftime('%d %b %Y, %H:%M')} IST")
 
     # Gold accent line
     canvas.setStrokeColor(GOLD)
@@ -194,7 +253,7 @@ def build_pdf_report(
     story.append(Spacer(1, 8*mm))
     story.append(Paragraph("Solar SPV Analytics", S["title"]))
     story.append(Paragraph(
-        f"Comprehensive O&M Report  ·  Site: {site_name}  ·  {datetime.now().strftime('%d %B %Y')}",
+        f"Comprehensive O&M Report  ·  Site: {site_name}  ·  {_now_ist().strftime('%d %B %Y')}",
         S["subtitle"]
     ))
     story.append(HRFlowable(width="100%", thickness=0.5, color=GOLD, spaceAfter=12))
@@ -215,7 +274,7 @@ def build_pdf_report(
         ["Total Anomalies Detected", str(n_anomalies)],
         ["High-Severity Anomalies", str(n_high)],
         ["Estimated Energy Loss (kWh)", f"{total_loss:.2f}"],
-        ["Report Date", datetime.now().strftime("%d %b %Y %H:%M")],
+        ["Report Date", _now_ist().strftime("%d %b %Y %H:%M IST")],
     ]
 
     summary_table = Table(summary_data, colWidths=[90*mm, 80*mm])
