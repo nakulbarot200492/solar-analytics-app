@@ -41,17 +41,17 @@ st.markdown("""
 
 nav_cols = st.columns(6)
 with nav_cols[0]:
-    st.page_link("app/main.py", label="🏠 Home", use_container_width=True)
+    st.page_link("main.py", label="🏠 Home", use_container_width=True)
 with nav_cols[1]:
-    st.page_link("app/pages/1_Upload.py", label="📁 Upload", use_container_width=True)
+    st.page_link("pages/1_Upload.py", label="📁 Upload", use_container_width=True)
 with nav_cols[2]:
-    st.page_link("app/pages/2_Ranking.py", label="📊 Ranking", use_container_width=True)
+    st.page_link("pages/2_Ranking.py", label="📊 Ranking", use_container_width=True)
 with nav_cols[3]:
-    st.page_link("app/pages/3_Anomalies.py", label="⚠️ Anomalies", use_container_width=True)
+    st.page_link("pages/3_Anomalies.py", label="⚠️ Anomalies", use_container_width=True)
 with nav_cols[4]:
-    st.page_link("app/pages/4_MPPT_Analysis.py", label="⚡ MPPT", use_container_width=True)
+    st.page_link("pages/4_MPPT_Analysis.py", label="⚡ MPPT", use_container_width=True)
 with nav_cols[5]:
-    st.page_link("app/pages/5_RCA_Report.py", label="🛠️ RCA", use_container_width=True)
+    st.page_link("pages/5_RCA_Report.py", label="🛠️ RCA", use_container_width=True)
 
 st.markdown("</div>", unsafe_allow_html=True)
 
