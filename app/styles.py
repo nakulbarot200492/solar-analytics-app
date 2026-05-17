@@ -187,12 +187,18 @@ def inject_global_css():
 
     /* ─── Sidebar Toggle Button (Mobile) ────────────── */
     [data-testid="collapsedControl"] {
-        color: #ffffff !important;
-        background-color: transparent !important;
+        background-color: var(--primary) !important;
+        border-radius: 50% !important;
+        margin: 10px !important;
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3) !important;
+        color: #131313 !important;
+        z-index: 1000000 !important;
+        display: flex !important;
     }
-    [data-testid="collapsedControl"] svg {
-        fill: #ffffff !important;
-        stroke: #ffffff !important;
+    [data-testid="collapsedControl"] svg, [data-testid="collapsedControl"] path {
+        fill: #131313 !important;
+        stroke: #131313 !important;
+        color: #131313 !important;
     }
     </style>
     """, unsafe_allow_html=True)
