@@ -1,9 +1,23 @@
 import streamlit as st
 import pandas as pd
+import sys
+import os
+
+# Add project root to sys.path (same pattern as 1_Upload.py)
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 from core.exporter import build_export_package
 from core.rca_engine import get_rca_summary
-from core.pdf_exporter import build_pdf_report
 from app.styles import inject_global_css, inject_nav_bar
+
+# Safe import — reportlab may still be installing on first deploy
+try:
+    from core.pdf_exporter import build_pdf_report
+    PDF_AVAILABLE = True
+except ImportError:
+    PDF_AVAILABLE = False
 
 st.set_page_config(page_title="Export Reports", page_icon="📥", layout="wide")
 inject_global_css()
@@ -51,13 +65,15 @@ with st.spinner("Preparing reports..."):
         mppt_summary_df=mppt_summary_df
     )
 
-    pdf_data = build_pdf_report(
-        ranking_df=ranking_df,
-        anomaly_df=anomaly_df,
-        rca_df=rca_summary_df,
-        mppt_summary_df=mppt_summary_df,
-        site_name=site_name
-    )
+    pdf_data = None
+    if PDF_AVAILABLE:
+        pdf_data = build_pdf_report(
+            ranking_df=ranking_df,
+            anomaly_df=anomaly_df,
+            rca_df=rca_summary_df,
+            mppt_summary_df=mppt_summary_df,
+            site_name=site_name
+        )
 
 # ── Download Buttons ─────────────────────────────────────────────────────────
 st.markdown("### Choose Download Format")
@@ -95,13 +111,17 @@ with col2:
         </p>
     </div>
     """, unsafe_allow_html=True)
-    st.download_button(
-        label="⬇️  Download PDF Report (.pdf)",
-        data=pdf_data,
-        file_name=f"solar_analytics_{site_name}.pdf",
-        mime="application/pdf",
-        use_container_width=True
-    )
+    if PDF_AVAILABLE and pdf_data:
+        st.download_button(
+            label="⬇️  Download PDF Report (.pdf)",
+            data=pdf_data,
+            file_name=f"solar_analytics_{site_name}.pdf",
+            mime="application/pdf",
+            use_container_width=True
+        )
+    else:
+        st.info("📦 PDF engine is being installed. Please refresh the page in 60 seconds.")
+
 
 st.markdown("""
 <div style="text-align: center; margin-top: 20px;">
