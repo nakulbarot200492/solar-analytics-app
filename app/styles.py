@@ -186,19 +186,23 @@ def inject_global_css():
     iframe[src*="badge"] { display: none !important; }
 
     /* ─── Sidebar Toggle Button (Mobile) ────────────── */
-    [data-testid="collapsedControl"] {
-        background-color: var(--primary) !important;
-        border-radius: 50% !important;
-        margin: 10px !important;
-        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3) !important;
-        color: #131313 !important;
-        z-index: 1000000 !important;
-        display: flex !important;
+    header[data-testid="stHeader"] {
+        background: transparent !important;
     }
-    [data-testid="collapsedControl"] svg, [data-testid="collapsedControl"] path {
+    button[kind="header"] {
+        background-color: var(--primary) !important;
+        color: #131313 !important;
+        border-radius: 50% !important;
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3) !important;
+        margin-top: 10px !important;
+        margin-left: 10px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline-flex !important;
+    }
+    button[kind="header"] svg {
         fill: #131313 !important;
         stroke: #131313 !important;
-        color: #131313 !important;
     }
     </style>
     """, unsafe_allow_html=True)
