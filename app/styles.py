@@ -186,30 +186,41 @@ def inject_global_css():
     iframe[src*="badge"] { display: none !important; }
 
     /* ─── Sidebar Toggle Button (Mobile) ────────────── */
-    [data-testid="stHeader"] {
+    header[data-testid="stHeader"] {
+        background-color: transparent !important;
         display: block !important;
         visibility: visible !important;
-        background: transparent !important;
     }
     
-    [data-testid="collapsedControl"] {
+    /* Hide ONLY the top-right Streamlit deploy and menu buttons */
+    div[data-testid="stAppDeployButton"],
+    div[data-testid="stMainMenu"],
+    button[data-testid="stHeaderActionButton"],
+    div[data-testid="stToolbar"] {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    /* Force exact specificity for the toggle button */
+    button[data-testid="collapsedControl"] {
+        color: white !important;
+        background-color: var(--primary) !important;
+        border-radius: 50% !important;
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3) !important;
         display: flex !important;
         visibility: visible !important;
         opacity: 1 !important;
         position: fixed !important;
-        top: 10px !important;
-        left: 10px !important;
-        background-color: var(--primary) !important;
-        border-radius: 50% !important;
+        top: 15px !important;
+        left: 15px !important;
+        z-index: 1000000 !important;
         width: 45px !important;
         height: 45px !important;
         justify-content: center !important;
         align-items: center !important;
-        z-index: 1000000 !important;
-        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3) !important;
     }
     
-    [data-testid="collapsedControl"] svg {
+    button[data-testid="collapsedControl"] svg {
         fill: #131313 !important;
         stroke: #131313 !important;
         color: #131313 !important;
